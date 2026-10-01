@@ -1,0 +1,102 @@
+MONITOR DESKTOP - Windows 10/11 - Windows PowerShell 5.1
+
+COMO ABRIR
+Extraia todos os arquivos do ZIP para uma pasta permanente.
+Clique duas vezes em Iniciar.cmd. Nao execute dentro do ZIP.
+Arraste o titulo para posicionar. Feche pelo X para salvar as preferencias.
+Opcional: Ativar-Inicio-Automatico.cmd abre o painel a cada login.
+Mantenha a pasta no mesmo local depois de ativar essa opcao.
+Abrir Iniciar.cmd novamente recupera o painel em 100%, sem duplicar janelas.
+
+VISAO GERAL
+CPU, RAM, entrada e saida de rede, leitura e gravacao de discos, GPU,
+temperaturas e espaco livre em todos os volumes locais com letra.
+Os discos usam barras animadas e aparecem juntos, sem rolagem.
+Um disco fisico particionado pode aparecer em mais de um volume.
+O painel adapta a escala para caber na area util da tela. Mais unidades
+podem reduzir o tamanho do texto. O painel completo tem largura natural
+de 860 pixels logicos para acomodar todas as informacoes.
+
+PROCESSOS / PIDs
+Nome, PID, CPU percentual e RAM em MiB, com caminho do executavel.
+Busque por nome, PID ou caminho. Ordene por CPU, RAM, nome ou PID.
+Selecione um processo para ver o caminho e clique em Copiar PID.
+CPU usa a diferenca de tempo de processador entre duas coletas e e
+normalizada para o total de processadores logicos. A primeira leitura
+fica em branco ate haver duas amostras. RAM e o conjunto de trabalho
+do processo; memoria compartilhada pode aparecer em mais de um processo.
+Listas usam paginacao para permitir acesso a todos os registros.
+
+CONEXOES
+Conexoes TCP e portas em escuta, endpoints UDP, enderecos e portas
+locais/remotos, estado, processo e PID responsavel. UDP nao tem um destino
+remoto persistente nesta consulta. Busque por processo, PID, IP ou porta.
+PIDs podem mudar quando processos encerram; a lista e uma fotografia
+do momento da coleta, e nao um registro de todos os pacotes.
+
+SERVICOS
+Nome, descricao, estado, tipo de inicializacao e PID associado.
+Servicos parados costumam ter PID 0. Um PID pode hospedar varios servicos.
+Selecione uma linha para consultar o comando/caminho do servico.
+
+HARDWARE / REDE
+Adaptadores fisicos ativos: IPv4 local, velocidade do link e taxas
+medias de entrada/saida. As taxas usam contadores de bytes entre coletas.
+O total soma os adaptadores fisicos, excluindo adaptadores virtuais/VPN.
+As conexoes TCP/UDP, por outro lado, incluem todas as interfaces visiveis.
+Link e capacidade negociada, nao e a velocidade contratada da internet.
+
+GPU
+Mostra nomes das placas, carga do motor mais ocupado e memoria dedicada
+e compartilhada em uso, quando os contadores do driver estao disponiveis.
+Em varias GPUs, a carga e a do motor mais ocupado entre elas e a memoria
+e a soma dos adaptadores consultados. Nao estima capacidade de VRAM usando
+o campo AdapterRAM do Windows. Indisponivel significa ausencia de leitura,
+nao 0% de uso. Esses contadores podem diferir do Gerenciador de Tarefas.
+
+TEMPERATURAS
+Le sensores expostos via WMI pelo Libre Hardware Monitor ou Open Hardware
+Monitor, se um deles estiver rodando e disponibilizando esses dados.
+Fonte oficial opcional: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
+Nao inclui nem instala drivers ou esses programas. Dependendo do sensor,
+podem ser necessarias permissoes elevadas no programa que fornece a leitura.
+Sem esses dados, tenta zonas termicas ACPI do Windows. Essas zonas sao
+identificadas como ACPI e NAO representam necessariamente CPU/GPU/disco.
+A visao geral destaca a maior temperatura entre os sensores disponiveis;
+os detalhes mostram hardware, sensor, valor e fonte. Sem sensores acessiveis,
+mostra explicitamente Sem sensores. Sensores nao sao inventados ou estimados.
+
+URLs
+Cole uma URL http:// ou https:// por linha, ate 50, e clique Verificar agora.
+Opcional: marque A cada 60 s para repetir. O intervalo de 60 s comeca ao
+terminar uma rodada, e nao ha rodadas simultaneas. A lista e a preferencia
+de verificacao automatica sao salvas para a proxima abertura.
+Requisicoes GET consultam os cabecalhos HTTP sem baixar o corpo completo.
+Seguem ate 5 redirecionamentos; exibem o status final e o endereco final
+nos detalhes. Timeout nominal de 7 s por endereco; DNS pode demorar mais.
+200: verde; 404: vermelho; outros status e erros: amarelo.
+Um 403/401 pode significar restricao de acesso, e nao site fora do ar.
+Ver historico mostra ate 200 verificacoes desta sessao; Exportar CSV salva
+os resultados atuais ou o historico, conforme a visualizacao selecionada.
+O historico nao e persistido ao fechar. Nao captura prints nesta versao.
+
+INTERFACE E ATUALIZACAO
+Duas opcoes: Semitransparente (50%) e Totalmente visivel (100%).
+Animacoes suaves de abertura, opacidade e barras de armazenamento;
+respeitam a preferencia de animacoes da interface do Windows.
+Coleta em segundo plano; aguarda 5 s entre rodadas. A duracao real de uma
+rodada depende das consultas ao Windows e pode ultrapassar 5 s.
+As tabelas mostram 12 registros por pagina (URLs 8, sensores 6, rede 4).
+Dados protegidos podem exigir administrador ou aparecer como indisponiveis.
+O monitor apenas consulta dados; nao encerra processos nem altera servicos.
+
+REMOCAO E DIAGNOSTICO
+Execute Desativar-Inicio-Automatico.cmd, feche pelo X e apague a pasta.
+Preferencias e erro de inicializacao ficam em %LOCALAPPDATA%\MonitorDesktop.
+Para recomecar as preferencias, feche o monitor e apague preferencias.json.
+Pode conviver com o widget de discos anterior. Feche o anterior se preferir
+manter apenas este painel completo.
+Nao exige instalacao adicional para os recursos padrao do Windows.
+ExecutionPolicy Bypass vale apenas para o processo iniciado pelos CMD.
+Politicas corporativas podem bloquear scripts. Interface Windows e coleta
+real de hardware nao puderam ser executadas no ambiente de criacao.
